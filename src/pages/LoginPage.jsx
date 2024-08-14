@@ -30,7 +30,7 @@ const LoginPage = () => {
         // Check if the passwords match
         if (password === decryptedPassword) {
           alert("Login successful!");
-          navigate("/dashboard"); // Redirect to the dashboard or any other page
+          navigate("/home"); // Redirect to the Home page displaying saved recipes
         } else {
           alert("Incorrect password! Please try again.");
         }
