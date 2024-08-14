@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -21,6 +22,14 @@ const HomePage = () => {
 
   return (
     <div className="container mt-5">
+      <nav className="nav justify-content-end mb-4">
+        <Link className="nav-link" to="/">
+          Home
+        </Link>
+        <Link className="nav-link" to="/add-recipe">
+          Add Recipe
+        </Link>
+      </nav>
       <h2 className="text-center mb-4">Saved Recipes</h2>
       <div className="row">
         {recipes.length > 0 ? (
@@ -35,7 +44,6 @@ const HomePage = () => {
                 <div className="card-body">
                   <h5 className="card-title">{recipe.name}</h5>
                   <p className="card-text">{recipe.description}</p>
-                  {/* Add more recipe details here if needed */}
                 </div>
               </div>
             </div>
