@@ -3,30 +3,51 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./FormPage.css";
+import cryptoJS from "crypto-js";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [profilePicture, setProfilePicture] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Encrypt password
+    const encryptedPassword = cryptoJS.AES.encrypt(
+      password,
+      "secret_key"
+    ).toString();
+
+    // Convert profile picture to base64 and then register user
+    if (profilePicture) {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        await registerUser(reader.result, encryptedPassword);
+      };
+      reader.readAsDataURL(profilePicture);
+    } else {
+      await registerUser("", encryptedPassword);
+    }
+  };
+
+  const registerUser = async (profilePictureBase64, encryptedPassword) => {
     const user = {
       username,
       email,
-      password,
+      password: encryptedPassword,
+      profilePicture: profilePictureBase64,
     };
 
     try {
-      // Make POST request to JSON server to save the user
       await axios.post("http://localhost:3000/users", user);
-
-      // Automatically redirect to the login page
+      alert("Registration successful!");
       navigate("/login");
     } catch (error) {
       console.error("Error registering user:", error);
+      alert("Registration failed! Please try again.");
     }
   };
 
@@ -41,7 +62,11 @@ const RegisterPage = () => {
         </Link>
       </nav>
       <h2 className="text-center mb-4">Register</h2>
-      <form className="form-signin" onSubmit={handleSubmit}>
+      <form
+        className="form-signin"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
@@ -76,6 +101,15 @@ const RegisterPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="profilePicture">Profile Picture</label>
+          <input
+            type="file"
+            className="form-control"
+            id="profilePicture"
+            onChange={(e) => setProfilePicture(e.target.files[0])}
           />
         </div>
         <button type="submit" className="btn btn-primary btn-block">
