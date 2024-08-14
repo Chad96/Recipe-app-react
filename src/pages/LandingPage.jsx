@@ -46,11 +46,14 @@ const LandingPage = () => {
         <footer className="mt-auto text-white-50">
           <p>
             Recipe{" "}
-            <a href="https://getbootstrap.com/" className="text-white">
+            <a
+              href="https://menu-master-cyan.vercel.app/index.html"
+              className="text-white"
+            >
               Master
             </a>
             , by{" "}
-            <a href="https://twitter.com/mdo" className="text-white">
+            <a href="https://github.com/Chad96" className="text-white">
               Chad_codes
             </a>
             .

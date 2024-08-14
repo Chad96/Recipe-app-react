@@ -29,6 +29,9 @@ const HomePage = () => {
         <Link className="nav-link" to="/add-recipe">
           Add Recipe
         </Link>
+        <Link className="nav-link" to="/profile">
+          Profile
+        </Link>
       </nav>
       <h2 className="text-center mb-4">Saved Recipes</h2>
       <div className="row">
