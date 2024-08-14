@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import InputField from "../components/InputField";
-import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const AddRecipePage = () => {
   const [formData, setFormData] = useState({
@@ -12,104 +12,199 @@ const AddRecipePage = () => {
     preparationTime: "",
     cookingTime: "",
     servings: "",
-    image: null, // Add image field
+    image: null,
   });
-
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "image") {
-      setFormData({ ...formData, image: files[0] });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataWithImage = new FormData();
-    Object.keys(formData).forEach((key) => {
-      formDataWithImage.append(key, formData[key]);
-    });
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64Image = reader.result;
 
-    try {
-      await axios.post("http://localhost:3000/recipes", formDataWithImage, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      setMessage("Recipe added successfully!");
-    } catch (error) {
-      console.error("Failed to add recipe:", error);
-      setMessage("Failed to add recipe. Please try again.");
+      const recipeData = {
+        ...formData,
+        image: base64Image,
+      };
+
+      try {
+        await axios.post("http://localhost:3000/recipes", recipeData);
+        alert("Recipe added successfully!");
+        // Keep the user on the same page
+      } catch (error) {
+        console.error("Failed to add recipe:", error);
+        alert("Failed to add recipe.");
+      }
+    };
+
+    if (formData.image) {
+      reader.readAsDataURL(formData.image);
+    } else {
+      try {
+        await axios.post("http://localhost:3000/recipes", formData);
+        alert("Recipe added successfully!");
+        // Keep the user on the same page
+      } catch (error) {
+        console.error("Failed to add recipe:", error);
+        alert("Failed to add recipe.");
+      }
     }
+  };
+
+  const formStyle = {
+    maxWidth: "800px",
+    margin: "auto",
+    padding: "15px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+    borderRadius: "8px",
+    backgroundColor: "#fff",
+  };
+
+  const formGroupStyle = {
+    marginBottom: "15px",
+  };
+
+  const inputStyle = {
+    width: "100%",
+  };
+
+  const textareaStyle = {
+    width: "100%",
+    minHeight: "60px",
+    resize: "vertical",
   };
 
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">Add Recipe</h2>
-      {message && <div className="alert alert-info">{message}</div>}
-      <form onSubmit={handleSubmit}>
-        <InputField
-          type="text"
-          name="name"
-          placeholder="Recipe Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <InputField
-          type="text"
-          name="ingredients"
-          placeholder="Ingredients"
-          value={formData.ingredients}
-          onChange={handleChange}
-        />
-        <InputField
-          type="text"
-          name="instructions"
-          placeholder="Instructions"
-          value={formData.instructions}
-          onChange={handleChange}
-        />
-        <InputField
-          type="text"
-          name="category"
-          placeholder="Category"
-          value={formData.category}
-          onChange={handleChange}
-        />
-        <InputField
-          type="text"
-          name="preparationTime"
-          placeholder="Preparation Time"
-          value={formData.preparationTime}
-          onChange={handleChange}
-        />
-        <InputField
-          type="text"
-          name="cookingTime"
-          placeholder="Cooking Time"
-          value={formData.cookingTime}
-          onChange={handleChange}
-        />
-        <InputField
-          type="text"
-          name="servings"
-          placeholder="Servings"
-          value={formData.servings}
-          onChange={handleChange}
-        />
-        <div className="form-group">
-          <label htmlFor="image">Recipe Image</label>
-          <input
-            type="file"
-            className="form-control"
-            id="image"
-            name="image"
-            onChange={handleChange}
-          />
+      <form onSubmit={handleSubmit} style={formStyle}>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="form-group" style={formGroupStyle}>
+              <label htmlFor="name">Recipe Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group" style={formGroupStyle}>
+              <label htmlFor="category">Category</label>
+              <input
+                type="text"
+                className="form-control"
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group" style={formGroupStyle}>
+              <label htmlFor="preparationTime">Preparation Time</label>
+              <input
+                type="text"
+                className="form-control"
+                id="preparationTime"
+                name="preparationTime"
+                value={formData.preparationTime}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group" style={formGroupStyle}>
+              <label htmlFor="cookingTime">Cooking Time</label>
+              <input
+                type="text"
+                className="form-control"
+                id="cookingTime"
+                name="cookingTime"
+                value={formData.cookingTime}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group" style={formGroupStyle}>
+              <label htmlFor="servings">Servings</label>
+              <input
+                type="text"
+                className="form-control"
+                id="servings"
+                name="servings"
+                value={formData.servings}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group" style={formGroupStyle}>
+              <label htmlFor="image">Recipe Image</label>
+              <input
+                type="file"
+                className="form-control"
+                id="image"
+                onChange={handleImageChange}
+                required
+                style={inputStyle}
+              />
+            </div>
+          </div>
         </div>
-        <Button text="Add Recipe" />
+        <div className="form-group" style={formGroupStyle}>
+          <label htmlFor="ingredients">Ingredients</label>
+          <textarea
+            className="form-control"
+            id="ingredients"
+            name="ingredients"
+            value={formData.ingredients}
+            onChange={handleChange}
+            required
+            style={textareaStyle}
+          ></textarea>
+        </div>
+        <div className="form-group" style={formGroupStyle}>
+          <label htmlFor="instructions">Instructions</label>
+          <textarea
+            className="form-control"
+            id="instructions"
+            name="instructions"
+            value={formData.instructions}
+            onChange={handleChange}
+            required
+            style={textareaStyle}
+          ></textarea>
+        </div>
+        <button type="submit" className="btn btn-primary btn-block">
+          Add Recipe
+        </button>
       </form>
     </div>
   );
