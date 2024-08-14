@@ -21,11 +21,12 @@ const RegisterPage = () => {
       "secret_key"
     ).toString();
 
-    // Convert profile picture to base64 and then register user
+    // Convert profile picture to base64, hash it with SHA-256, and then register user
     if (profilePicture) {
       const reader = new FileReader();
       reader.onloadend = async () => {
-        await registerUser(reader.result, encryptedPassword);
+        const hashedProfilePicture = hashImage(reader.result);
+        await registerUser(hashedProfilePicture, encryptedPassword);
       };
       reader.readAsDataURL(profilePicture);
     } else {
@@ -33,12 +34,16 @@ const RegisterPage = () => {
     }
   };
 
-  const registerUser = async (profilePictureBase64, encryptedPassword) => {
+  const hashImage = (imageBase64) => {
+    return cryptoJS.SHA256(imageBase64).toString(cryptoJS.enc.Hex);
+  };
+
+  const registerUser = async (profilePictureHash, encryptedPassword) => {
     const user = {
       username,
       email,
       password: encryptedPassword,
-      profilePicture: profilePictureBase64,
+      profilePicture: profilePictureHash,
     };
 
     try {
