@@ -100,7 +100,7 @@ const ProfilePage = () => {
             onClick={() => navigate("/")}
             style={{
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
               background: "none",
               border: "none",
               cursor: "pointer",
@@ -112,7 +112,7 @@ const ProfilePage = () => {
             onClick={handleLogout}
             style={{
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
               background: "none",
               border: "none",
               cursor: "pointer",

@@ -14,22 +14,19 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Encrypt password
-    const encryptedPassword = cryptoJS.AES.encrypt(
-      password,
-      "secret_key"
-    ).toString();
+    // Hash password using SHA-256
+    const hashedPassword = cryptoJS.SHA256(password).toString();
 
     // Convert profile picture to base64, hash it with SHA-256, and then register user
     if (profilePicture) {
       const reader = new FileReader();
       reader.onloadend = async () => {
         const hashedProfilePicture = hashImage(reader.result);
-        await registerUser(hashedProfilePicture, encryptedPassword);
+        await registerUser(hashedProfilePicture, hashedPassword);
       };
       reader.readAsDataURL(profilePicture);
     } else {
-      await registerUser("", encryptedPassword);
+      await registerUser("", hashedPassword);
     }
   };
 
@@ -37,11 +34,11 @@ const RegisterPage = () => {
     return cryptoJS.SHA256(imageBase64).toString(cryptoJS.enc.Hex);
   };
 
-  const registerUser = async (profilePictureHash, encryptedPassword) => {
+  const registerUser = async (profilePictureHash, hashedPassword) => {
     const user = {
       username,
       email,
-      password: encryptedPassword,
+      password: hashedPassword,
       profilePicture: profilePictureHash,
     };
 
@@ -59,7 +56,6 @@ const RegisterPage = () => {
     <div
       style={{
         minHeight: "100vh",
-        // backgroundImage: `url('/src/assets/your-background-image.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         padding: "0",

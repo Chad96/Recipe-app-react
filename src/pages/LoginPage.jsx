@@ -20,14 +20,11 @@ const LoginPage = () => {
       const user = response.data[0];
 
       if (user) {
-        // Decrypt the stored password
-        const decryptedPassword = cryptoJS.AES.decrypt(
-          user.password,
-          "secret_key"
-        ).toString(cryptoJS.enc.Utf8);
+        // Hash the entered password using SHA-256
+        const hashedPassword = cryptoJS.SHA256(password).toString();
 
-        // Check if the passwords match
-        if (password === decryptedPassword) {
+        // Check if the hashed passwords match
+        if (hashedPassword === user.password) {
           alert("Login successful!");
           navigate("/home"); // Redirect to the Home page displaying saved recipes
         } else {
@@ -109,7 +106,7 @@ const LoginPage = () => {
           <form
             onSubmit={handleSubmit}
             style={{
-              backgroundColor: "rgba(255, 255, 255, 0)", // Slightly opaque to see background
+              backgroundColor: "rgba(255, 255, 255, 0.01)", // Slightly opaque to see background
               padding: "20px",
               borderRadius: "10px",
               width: "100%",
