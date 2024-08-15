@@ -147,7 +147,7 @@ const HomePage = () => {
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((recipe) => (
                 <div key={recipe.id} className="col-md-4">
-                  <div className="card mb-4">
+                  <div className="card mb-4" style={{ width: "18rem" }}>
                     <img
                       src={recipe.image}
                       className="card-img-top"
@@ -155,17 +155,27 @@ const HomePage = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{recipe.name}</h5>
-                      <p className="card-text">{recipe.description}</p>
+                      <p className="card-text">
+                        <strong>Prep Time:</strong> {recipe.prepTime} mins{" "}
+                        <br />
+                        <strong>Cook Time:</strong> {recipe.cookTime} mins
+                      </p>
                       <div className="d-flex justify-content-between">
                         <Link
                           to={`/edit-recipe/${recipe.id}`}
-                          className="btn btn-warning"
+                          className="btn btn-warning btn-sm"
                         >
                           Edit
                         </Link>
+                        <Link
+                          to={`/recipe/${recipe.id}`}
+                          className="btn btn-primary btn-sm"
+                        >
+                          Full Instructions
+                        </Link>
                         <button
                           onClick={() => handleDelete(recipe.id)}
-                          className="btn btn-danger"
+                          className="btn btn-danger btn-sm"
                         >
                           Delete
                         </button>

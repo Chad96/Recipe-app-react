@@ -47,7 +47,7 @@ const LandingPage = () => {
           <p>
             Recipe{" "}
             <a
-              href="https://menu-master-cyan.vercel.app/index.html"
+              href="https://www.linkedin.com/in/chadrack-ndalamba-442139137/"
               className="text-white"
             >
               Master
