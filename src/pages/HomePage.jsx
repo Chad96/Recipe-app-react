@@ -9,7 +9,6 @@ const HomePage = () => {
   const [categoryFilter, setCategoryFilter] = useState("");
 
   useEffect(() => {
-    // Fetch all recipes from the JSON server
     const fetchRecipes = async () => {
       try {
         const response = await axios.get("http://localhost:3000/recipes");
@@ -60,7 +59,7 @@ const HomePage = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          backgroundColor: "rgba(255, 255, 255, 0.1)", // semi-transparent background
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
           zIndex: "1000",
         }}
       >
@@ -138,7 +137,7 @@ const HomePage = () => {
           alignItems: "center",
           minHeight: "100vh",
           padding: "20px",
-          paddingTop: "25%", // Add padding to avoid overlap with header
+          paddingTop: "25%",
         }}
       >
         <div className="container">
@@ -146,17 +145,24 @@ const HomePage = () => {
           <div className="row">
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((recipe) => (
-                <div key={recipe.id} className="col-md-4">
+                <div
+                  key={recipe.id}
+                  className="col-md-6 col-lg-4 d-flex align-items-stretch"
+                >
                   <div
                     className="card mb-4"
                     style={{
                       width: "100%",
-                      maxWidth: "350px", // Wider card
-                      minHeight: "300px", // Shorter card
-                      margin: "auto", // Center the card
-                      borderRadius: "8px", // Rounded corners
-                      overflow: "hidden", // Ensure contents don't overflow
-                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)", // Shadow effect
+                      minWidth: "280px",
+                      maxWidth: "350px",
+                      minHeight: "350px",
+                      margin: "auto",
+                      borderRadius: "8px",
+                      overflow: "hidden",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
                     }}
                   >
                     <img
@@ -164,17 +170,19 @@ const HomePage = () => {
                       className="card-img-top"
                       alt={recipe.name}
                       style={{
-                        height: "150px", // Fixed height for images
-                        objectFit: "cover", // Cover the card
+                        height: "150px",
+                        objectFit: "cover",
                       }}
                     />
-                    <div className="card-body">
-                      <h5 className="card-title">{recipe.name}</h5>
-                      <p className="card-text">
-                        <strong>Prep Time:</strong> {recipe.prepTime} mins{" "}
-                        <br />
-                        <strong>Cook Time:</strong> {recipe.cookTime} mins
-                      </p>
+                    <div className="card-body d-flex flex-column justify-content-between">
+                      <div>
+                        <h5 className="card-title">{recipe.name}</h5>
+                        <p className="card-text">
+                          <strong>Prep Time:</strong> {recipe.prepTime} mins
+                          <br />
+                          <strong>Cook Time:</strong> {recipe.cookTime} mins
+                        </p>
+                      </div>
                       <div className="d-flex flex-column gap-2">
                         <div className="d-flex justify-content-between">
                           <Link
