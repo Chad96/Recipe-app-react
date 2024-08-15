@@ -84,11 +84,10 @@ const AddRecipePage = () => {
 
   return (
     <div
-      className="container mt-5"
+      className="container-fluid" // Changed to fluid container to take up full width
       style={{
-        width: "90%", // Container resized to 90% of the viewport width to better position form and nav links
-        maxWidth: "1200px", // Ensures the container doesn't exceed 1200px
-        margin: "auto",
+        minHeight: "100vh", // Set container height to full viewport height
+        padding: "20px", // Added some padding for better spacing
       }}
     >
       <nav
@@ -96,6 +95,8 @@ const AddRecipePage = () => {
           display: "flex",
           justifyContent: "flex-end",
           marginBottom: "30px",
+          marginRight: "-30%",
+          marginTop: "-1.5%",
         }}
       >
         <Link
