@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
-  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
 
   useEffect(() => {
     // Fetch all recipes from the JSON server
@@ -29,6 +30,13 @@ const HomePage = () => {
       console.error("Error deleting recipe:", error);
     }
   };
+
+  const filteredRecipes = recipes.filter((recipe) => {
+    return (
+      recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (categoryFilter === "" || recipe.category === categoryFilter)
+    );
+  });
 
   return (
     <div
@@ -56,7 +64,37 @@ const HomePage = () => {
           zIndex: "1000",
         }}
       >
-        <h3 style={{ margin: "0", paddingLeft: "20px" }}>Recipe Master</h3>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <input
+            type="text"
+            placeholder="Search by name"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              padding: "5px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              marginRight: "10px",
+            }}
+          />
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            style={{
+              padding: "5px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+            }}
+          >
+            <option value="">All Categories</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Dessert">Dessert</option>
+            <option value="Main Course">Main Course</option>
+            <option value="Appetiser">Appetiser</option>
+          </select>
+        </div>
         <nav
           style={{
             padding: "0 20px",
@@ -106,8 +144,8 @@ const HomePage = () => {
         <div className="container">
           <h2 className="text-center mb-4">Saved Recipes</h2>
           <div className="row">
-            {recipes.length > 0 ? (
-              recipes.map((recipe) => (
+            {filteredRecipes.length > 0 ? (
+              filteredRecipes.map((recipe) => (
                 <div key={recipe.id} className="col-md-4">
                   <div className="card mb-4">
                     <img
