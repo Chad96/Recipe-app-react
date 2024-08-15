@@ -100,7 +100,7 @@ const HomePage = () => {
           alignItems: "center",
           minHeight: "100vh",
           padding: "20px",
-          paddingTop: "30%", // Add padding to avoid overlap with header
+          paddingTop: "25%", // Add padding to avoid overlap with header
         }}
       >
         <div className="container">
