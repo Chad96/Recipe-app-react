@@ -104,7 +104,7 @@ const HomePage = () => {
             style={{
               marginRight: "20px",
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
             }}
           >
             Home
@@ -114,7 +114,7 @@ const HomePage = () => {
             style={{
               marginRight: "20px",
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
             }}
           >
             Add Recipe
@@ -123,7 +123,7 @@ const HomePage = () => {
             to="/profile"
             style={{
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
             }}
           >
             Profile

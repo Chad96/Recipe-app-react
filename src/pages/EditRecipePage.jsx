@@ -146,7 +146,7 @@ const EditRecipePage = () => {
             style={{
               marginRight: "20px",
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
             }}
           >
             Home
@@ -156,7 +156,7 @@ const EditRecipePage = () => {
             style={{
               marginRight: "20px",
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
             }}
           >
             Saved Recipes
@@ -165,7 +165,7 @@ const EditRecipePage = () => {
             to="/profile"
             style={{
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
             }}
           >
             Profile

@@ -76,7 +76,7 @@ const LoginPage = () => {
             style={{
               marginRight: "20px",
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
             }}
           >
             Home
@@ -85,7 +85,7 @@ const LoginPage = () => {
             to="/register"
             style={{
               textDecoration: "none",
-              color: "#007bff",
+              color: "white",
             }}
           >
             Register
