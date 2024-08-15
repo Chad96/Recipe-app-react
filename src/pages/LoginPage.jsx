@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./FormPage.css";
 import cryptoJS from "crypto-js";
 
 const LoginPage = () => {
@@ -44,48 +43,136 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <nav className="nav justify-content-end">
-        <Link className="nav-link" to="/">
-          Home
-        </Link>
-        <Link className="nav-link" to="/register">
-          Register
-        </Link>
-      </nav>
-      <h2 className="text-center mb-4">Log In</h2>
-      <form className="form-signin" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundImage: `url('/src/assets/your-background-image.jpg')`, // Replace with your background image path
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "0",
+        margin: "0",
+        position: "relative",
+      }}
+    >
+      <header
+        style={{
+          position: "fixed",
+          top: "0",
+          left: "0",
+          width: "100%",
+          padding: "10px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          backgroundColor: "rgba(255, 255, 255, 0.1)", // semi-transparent background
+          zIndex: "1000",
+        }}
+      >
+        <h3 style={{ margin: "0", paddingLeft: "20px" }}>Recipe Master</h3>
+        <nav
+          style={{
+            padding: "0 20px",
+          }}
+        >
+          <Link
+            to="/"
+            style={{
+              marginRight: "20px",
+              textDecoration: "none",
+              color: "#007bff",
+            }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/register"
+            style={{
+              textDecoration: "none",
+              color: "#007bff",
+            }}
+          >
+            Register
+          </Link>
+        </nav>
+      </header>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          padding: "20px",
+          paddingTop: "80px", // Add padding to avoid overlap with header
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: "500px" }}>
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0)", // Slightly opaque to see background
+              padding: "20px",
+              borderRadius: "10px",
+              width: "100%",
+            }}
+          >
+            <h2 className="text-center mb-4">Log In</h2>
+            <div style={{ marginBottom: "15px" }}>
+              <label htmlFor="email">Email address</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: "15px" }}>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                }}
+              />
+            </div>
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "none",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            >
+              Log In
+            </button>
+          </form>
+          <p style={{ textAlign: "center", marginTop: "20px" }}>
+            Don't have an account?{" "}
+            <Link to="/register" style={{ color: "#007bff" }}>
+              Register
+            </Link>
+          </p>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary btn-block">
-          Log In
-        </button>
-      </form>
-      <p className="mt-3">
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
+      </div>
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./FormPage.css";
 import cryptoJS from "crypto-js";
 
 const RegisterPage = () => {
@@ -57,73 +56,168 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <nav className="nav justify-content-end">
-        <Link className="nav-link" to="/">
-          Home
-        </Link>
-        <Link className="nav-link" to="/login">
-          Log in
-        </Link>
-      </nav>
-      <h2 className="text-center mb-4">Register</h2>
-      <form
-        className="form-signin"
-        onSubmit={handleSubmit}
-        encType="multipart/form-data"
+    <div
+      style={{
+        minHeight: "100vh",
+        // backgroundImage: `url('/src/assets/your-background-image.jpg')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "0",
+        margin: "0",
+        position: "relative",
+      }}
+    >
+      <header
+        style={{
+          position: "fixed",
+          top: "0",
+          left: "0",
+          width: "100%",
+          padding: "10px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          backgroundColor: "rgba(255, 255, 255, 0.1)", // semi-transparent background
+          zIndex: "1000",
+        }}
       >
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+        <h3 style={{ margin: "0", paddingLeft: "20px" }}>Recipe Master</h3>
+        <nav
+          style={{
+            padding: "0 20px",
+          }}
+        >
+          <Link
+            to="/"
+            style={{
+              marginRight: "20px",
+              textDecoration: "none",
+              color: "#007bff",
+            }}
+          >
+            Home
+          </Link>
+          <Link
+            to="/login"
+            style={{
+              textDecoration: "none",
+              color: "#007bff",
+            }}
+          >
+            Log in
+          </Link>
+        </nav>
+      </header>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          padding: "20px",
+          paddingTop: "80px", // Add padding to avoid overlap with header
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: "500px" }}>
+          <form
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.01)", // Slightly opaque to see background
+              padding: "20px",
+              borderRadius: "10px",
+              width: "100%",
+            }}
+          >
+            <h2 className="text-center mb-4">Register</h2>
+            <div style={{ marginBottom: "15px" }}>
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                placeholder="Enter username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: "15px" }}>
+              <label htmlFor="email">Email address</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: "15px" }}>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: "15px" }}>
+              <label htmlFor="profilePicture">Profile Picture</label>
+              <input
+                type="file"
+                id="profilePicture"
+                onChange={(e) => setProfilePicture(e.target.files[0])}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                }}
+              />
+            </div>
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "none",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                fontSize: "16px",
+              }}
+            >
+              Register
+            </button>
+          </form>
+          <p style={{ textAlign: "center", marginTop: "20px" }}>
+            Already have an account?{" "}
+            <Link to="/login" style={{ color: "#007bff" }}>
+              Log in
+            </Link>
+          </p>
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="profilePicture">Profile Picture</label>
-          <input
-            type="file"
-            className="form-control"
-            id="profilePicture"
-            onChange={(e) => setProfilePicture(e.target.files[0])}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary btn-block">
-          Register
-        </button>
-      </form>
-      <p className="mt-3">
-        Already have an account? <Link to="/login">Log in</Link>
-      </p>
+      </div>
     </div>
   );
 };
