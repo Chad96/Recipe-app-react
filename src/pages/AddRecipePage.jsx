@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -40,7 +40,6 @@ const AddRecipePage = () => {
       try {
         await axios.post("http://localhost:3000/recipes", recipeData);
         alert("Recipe added successfully!");
-        // Keep the user on the same page
       } catch (error) {
         console.error("Failed to add recipe:", error);
         alert("Failed to add recipe.");
@@ -53,7 +52,6 @@ const AddRecipePage = () => {
       try {
         await axios.post("http://localhost:3000/recipes", formData);
         alert("Recipe added successfully!");
-        // Keep the user on the same page
       } catch (error) {
         console.error("Failed to add recipe:", error);
         alert("Failed to add recipe.");
@@ -85,7 +83,51 @@ const AddRecipePage = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{
+        width: "90%", // Container resized to 90% of the viewport width to better position form and nav links
+        maxWidth: "1200px", // Ensures the container doesn't exceed 1200px
+        margin: "auto",
+      }}
+    >
+      <nav
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "30px",
+        }}
+      >
+        <Link
+          to="/"
+          style={{
+            marginRight: "20px",
+            textDecoration: "none",
+            color: "#007bff",
+          }}
+        >
+          Home
+        </Link>
+        <Link
+          to="/home"
+          style={{
+            marginRight: "20px",
+            textDecoration: "none",
+            color: "#007bff",
+          }}
+        >
+          Saved Recipes
+        </Link>
+        <Link
+          to="/profile"
+          style={{
+            textDecoration: "none",
+            color: "#007bff",
+          }}
+        >
+          Profile
+        </Link>
+      </nav>
       <h2 className="text-center mb-4">Add Recipe</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
         <div className="row">
@@ -107,8 +149,7 @@ const AddRecipePage = () => {
           <div className="col-md-6">
             <div className="form-group" style={formGroupStyle}>
               <label htmlFor="category">Category</label>
-              <input
-                type="text"
+              <select
                 className="form-control"
                 id="category"
                 name="category"
@@ -116,7 +157,15 @@ const AddRecipePage = () => {
                 onChange={handleChange}
                 required
                 style={inputStyle}
-              />
+              >
+                <option value="">Select Category</option>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Dessert">Dessert</option>
+                <option value="Main Course">Main Course</option>
+                <option value="Appetiser">Appetiser</option>
+              </select>
             </div>
           </div>
           <div className="col-md-6">
