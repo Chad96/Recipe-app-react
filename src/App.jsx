@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import AddRecipePage from "./pages/AddRecipePage";
 import EditRecipePage from "./pages/EditRecipePage";
+import RecipePage from "./pages/RecipePage"; // Import RecipePage
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/add-recipe" element={<AddRecipePage />} />
             <Route path="/edit-recipe/:id" element={<EditRecipePage />} />
+            <Route path="/recipe/:id" element={<RecipePage />} />{" "}
+            {/* Add this line */}
           </Routes>
         </div>
       </Router>

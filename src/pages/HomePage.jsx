@@ -147,11 +147,26 @@ const HomePage = () => {
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((recipe) => (
                 <div key={recipe.id} className="col-md-4">
-                  <div className="card mb-4" style={{ width: "18rem" }}>
+                  <div
+                    className="card mb-4"
+                    style={{
+                      width: "100%",
+                      maxWidth: "350px", // Wider card
+                      minHeight: "300px", // Shorter card
+                      margin: "auto", // Center the card
+                      borderRadius: "8px", // Rounded corners
+                      overflow: "hidden", // Ensure contents don't overflow
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)", // Shadow effect
+                    }}
+                  >
                     <img
                       src={recipe.image}
                       className="card-img-top"
                       alt={recipe.name}
+                      style={{
+                        height: "150px", // Fixed height for images
+                        objectFit: "cover", // Cover the card
+                      }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">{recipe.name}</h5>
@@ -160,19 +175,21 @@ const HomePage = () => {
                         <br />
                         <strong>Cook Time:</strong> {recipe.cookTime} mins
                       </p>
-                      <div className="d-flex justify-content-between">
-                        <Link
-                          to={`/edit-recipe/${recipe.id}`}
-                          className="btn btn-warning btn-sm"
-                        >
-                          Edit
-                        </Link>
-                        <Link
-                          to={`/recipe/${recipe.id}`}
-                          className="btn btn-primary btn-sm"
-                        >
-                          Full Instructions
-                        </Link>
+                      <div className="d-flex flex-column gap-2">
+                        <div className="d-flex justify-content-between">
+                          <Link
+                            to={`/edit-recipe/${recipe.id}`}
+                            className="btn btn-warning btn-sm"
+                          >
+                            Edit
+                          </Link>
+                          <Link
+                            to={`/recipe/${recipe.id}`}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Full Instructions
+                          </Link>
+                        </div>
                         <button
                           onClick={() => handleDelete(recipe.id)}
                           className="btn btn-danger btn-sm"
