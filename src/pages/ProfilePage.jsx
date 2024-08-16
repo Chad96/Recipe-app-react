@@ -15,7 +15,7 @@ const ProfilePage = () => {
     const fetchUser = async () => {
       try {
         // Replace with actual user ID
-        const userId = "8f30"; // This should be dynamic, based on logged-in user
+        const userId = "6a3c"; // This should be dynamic, based on logged-in user
         const response = await axios.get(
           `http://localhost:3000/users/${userId}`
         );
